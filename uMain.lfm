@@ -11,7 +11,6 @@ object frmMain: TfrmMain
   OnResize = FormResize
   Color = 15921906
 
-  { ===== Sidebar ===== }
   object pnlSidebar: TPanel
     Left = 0
     Height = 780
@@ -78,7 +77,6 @@ object frmMain: TfrmMain
       end
     end
 
-    { Sidebar Search }
     object pnlSidebarSearch: TPanel
       Left = 0
       Height = 48
@@ -105,7 +103,6 @@ object frmMain: TfrmMain
       end
     end
 
-    { Active Indicator Bar }
     object shpNavIndicator: TShape
       Left = 0
       Height = 32
@@ -115,7 +112,6 @@ object frmMain: TfrmMain
       Pen.Color = 42640
     end
 
-    { Nav Sections & Items - Scrollable area }
     object pnlNavArea: TPanel
       Left = 0
       Height = 660
@@ -126,7 +122,6 @@ object frmMain: TfrmMain
       Color = 1776411
       ParentColor = False
 
-      { 概览 }
       object lblNavSection1: TLabel
         Left = 20
         Height = 14
@@ -158,7 +153,6 @@ object frmMain: TfrmMain
         OnMouseLeave = NavItemMouseLeave
       end
 
-      { 业务管理 }
       object lblNavSection2: TLabel
         Left = 20
         Height = 14
@@ -220,7 +214,6 @@ object frmMain: TfrmMain
         OnMouseLeave = NavItemMouseLeave
       end
 
-      { 分析 }
       object lblNavSection3: TLabel
         Left = 20
         Height = 14
@@ -250,7 +243,6 @@ object frmMain: TfrmMain
         OnMouseLeave = NavItemMouseLeave
       end
 
-      { 数据 }
       object lblNavSection4: TLabel
         Left = 20
         Height = 14
@@ -296,7 +288,6 @@ object frmMain: TfrmMain
         OnMouseLeave = NavItemMouseLeave
       end
 
-      { 系统 }
       object lblNavSection5: TLabel
         Left = 20
         Height = 14
@@ -328,7 +319,6 @@ object frmMain: TfrmMain
     end
   end
 
-  { ===== Main Content Area ===== }
   object pnlMain: TPanel
     Left = 260
     Height = 780
@@ -339,7 +329,6 @@ object frmMain: TfrmMain
     Color = 15921906
     ParentColor = False
 
-    { Topbar }
     object pnlTopbar: TPanel
       Left = 0
       Height = 48
@@ -384,7 +373,6 @@ object frmMain: TfrmMain
       end
     end
 
-    { Content ScrollBox }
     object scrContent: TScrollBox
       Left = 0
       Height = 732
@@ -396,7 +384,6 @@ object frmMain: TfrmMain
       ParentColor = False
       TabOrder = 0
 
-      { === Stats Row === }
       object pnlStats: TPanel
         Left = 0
         Height = 100
@@ -616,7 +603,6 @@ object frmMain: TfrmMain
         end
       end
 
-      { === Filter Card (Collapsible) === }
       object pnlFilterCard: TPanel
         Left = 0
         Height = 148
@@ -638,7 +624,6 @@ object frmMain: TfrmMain
           ParentColor = False
           TabOrder = 0
 
-          { Filter Header - clickable to toggle }
           object pnlFilterHeader: TPanel
             Left = 0
             Height = 40
@@ -677,7 +662,6 @@ object frmMain: TfrmMain
             end
           end
 
-          { Filter Body - grid of controls }
           object pnlFilterBody: TPanel
             Left = 0
             Height = 94
@@ -880,7 +864,6 @@ object frmMain: TfrmMain
               TextHint = 'yyyy-mm-dd'
             end
 
-            { Row 2: Search + buttons }
             object lblSearch: TLabel
               Left = 20
               Height = 14
@@ -937,7 +920,6 @@ object frmMain: TfrmMain
         end
       end
 
-      { === Table Card === }
       object pnlTableCard: TPanel
         Left = 0
         Height = 460
@@ -959,7 +941,6 @@ object frmMain: TfrmMain
           ParentColor = False
           TabOrder = 0
 
-          { Toolbar }
           object pnlToolbar: TPanel
             Left = 0
             Height = 44
@@ -1048,7 +1029,6 @@ object frmMain: TfrmMain
             end
           end
 
-          { Data Grid }
           object dbgExpenses: TDBGrid
             Left = 0
             Height = 358
@@ -1069,7 +1049,6 @@ object frmMain: TfrmMain
             AlternateColor = 16119285
           end
 
-          { Status Bar }
           object pnlStatusBar: TPanel
             Left = 0
             Height = 36
@@ -1121,7 +1100,6 @@ object frmMain: TfrmMain
     end
   end
 
-  { ===== Timers & DataSources ===== }
   object tmrToast: TTimer
     Enabled = False
     Interval = 2500

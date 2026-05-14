@@ -9,7 +9,6 @@ object frmExpenseEntry: TfrmExpenseEntry
   Position = poMainFormCenter
   OnCreate = FormCreate
 
-  { Modal Header — white, with title + close button }
   object pnlHeader: TPanel
     Left = 0
     Height = 52
@@ -55,7 +54,6 @@ object frmExpenseEntry: TfrmExpenseEntry
     end
   end
 
-  { Tab bar — custom drawn with bottom indicator }
   object pnlTabBar: TPanel
     Left = 0
     Height = 40
@@ -115,7 +113,6 @@ object frmExpenseEntry: TfrmExpenseEntry
     end
   end
 
-  { Content panels — switchable }
   object pnlBasic: TPanel
     Left = 0
     Height = 480
@@ -136,7 +133,6 @@ object frmExpenseEntry: TfrmExpenseEntry
       Color = 15921906
       ParentColor = False
 
-      { Row 1: 填单日期 | 发生日期 }
       object lblEntryDate: TLabel
         Left = 24
         Height = 16
@@ -184,7 +180,6 @@ object frmExpenseEntry: TfrmExpenseEntry
         TextHint = 'yyyy-mm-dd'
       end
 
-      { Row 2: 公司 | 部门 }
       object lblCompany: TLabel
         Left = 24
         Height = 16
@@ -234,7 +229,6 @@ object frmExpenseEntry: TfrmExpenseEntry
         TabOrder = 3
       end
 
-      { Row 3: 一级科目 | 二级科目 }
       object lblCat1: TLabel
         Left = 24
         Height = 16
@@ -285,7 +279,6 @@ object frmExpenseEntry: TfrmExpenseEntry
         TabOrder = 5
       end
 
-      { Row 4: 发票内容 (full width) }
       object lblInvoice: TLabel
         Left = 24
         Height = 16
@@ -310,7 +303,6 @@ object frmExpenseEntry: TfrmExpenseEntry
         TextHint = '输入发票内容'
       end
 
-      { Row 5: 费用明细 (full width, textarea) }
       object lblDetail: TLabel
         Left = 24
         Height = 16
@@ -334,7 +326,6 @@ object frmExpenseEntry: TfrmExpenseEntry
         TabOrder = 7
       end
 
-      { Row 6: 数量 | 单价 | 汇率 | 单据ID }
       object lblQuantity: TLabel
         Left = 24
         Height = 16
@@ -428,7 +419,6 @@ object frmExpenseEntry: TfrmExpenseEntry
         TabOrder = 11
       end
 
-      { Row 7: 预付 | 报销费用 | 单据ID }
       object lblPrepaid: TLabel
         Left = 24
         Height = 16
@@ -525,7 +515,6 @@ object frmExpenseEntry: TfrmExpenseEntry
       Color = 15921906
       ParentColor = False
 
-      { Row 1: 方式 | 供应商 }
       object lblMethod: TLabel
         Left = 24
         Height = 16
@@ -575,7 +564,6 @@ object frmExpenseEntry: TfrmExpenseEntry
         TabOrder = 1
       end
 
-      { Row 2: 付款人 | 报销人 }
       object lblPayer: TLabel
         Left = 24
         Height = 16
@@ -623,7 +611,6 @@ object frmExpenseEntry: TfrmExpenseEntry
         TextHint = '输入报销人'
       end
 
-      { Row 3: 转账收款 (full width) }
       object lblTransfer: TLabel
         Left = 24
         Height = 16
@@ -648,7 +635,6 @@ object frmExpenseEntry: TfrmExpenseEntry
         TextHint = '输入转账信息'
       end
 
-      { Row 4: 批次/张数 | 报销状态 }
       object lblBatch: TLabel
         Left = 24
         Height = 16
@@ -697,7 +683,6 @@ object frmExpenseEntry: TfrmExpenseEntry
         TabOrder = 6
       end
 
-      { Row 5: 领款日期 | 标记为资产 }
       object lblCollectDate: TLabel
         Left = 24
         Height = 16
@@ -740,7 +725,6 @@ object frmExpenseEntry: TfrmExpenseEntry
         TabOrder = 9
       end
 
-      { Row 6: 备注 (full width) }
       object lblNotes: TLabel
         Left = 24
         Height = 16
@@ -766,7 +750,6 @@ object frmExpenseEntry: TfrmExpenseEntry
     end
   end
 
-  { Footer buttons }
   object pnlButtons: TPanel
     Left = 0
     Height = 56
