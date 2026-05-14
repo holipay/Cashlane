@@ -1,0 +1,197 @@
+object frmReport: TfrmReport
+  Left = 250
+  Height = 600
+  Top = 100
+  Width = 900
+  BorderStyle = bsDialog
+  Caption = '📊 费用统计报表'
+  Position = poMainFormCenter
+  OnCreate = FormCreate
+  OnShow = FormShow
+  object pnlTop: TPanel
+    Left = 0
+    Height = 50
+    Top = 0
+    Width = 900
+    Align = alTop
+    BevelOuter = bvNone
+    Color = 15790320
+    ParentColor = False
+    object lblYear: TLabel
+      Left = 16
+      Height = 20
+      Top = 16
+      Width = 36
+      Caption = '年份:'
+      Font.Name = 'Microsoft YaHei'
+      Font.Size = 9
+      ParentFont = False
+    end
+    object cmbYear: TComboBox
+      Left = 60
+      Height = 24
+      Top = 12
+      Width = 80
+      Font.Name = 'Microsoft YaHei'
+      Font.Size = 9
+      ItemHeight = 20
+      ParentFont = False
+      Style = csDropDownList
+      TabOrder = 0
+    end
+    object lblMonth: TLabel
+      Left = 150
+      Height = 20
+      Top = 16
+      Width = 36
+      Caption = '月份:'
+      Font.Name = 'Microsoft YaHei'
+      Font.Size = 9
+      ParentFont = False
+    end
+    object cmbMonth: TComboBox
+      Left = 194
+      Height = 24
+      Top = 12
+      Width = 80
+      Font.Name = 'Microsoft YaHei'
+      Font.Size = 9
+      ItemHeight = 20
+      ParentFont = False
+      Style = csDropDownList
+      TabOrder = 1
+    end
+    object btnQuery: TSpeedButton
+      Left = 290
+      Height = 28
+      Top = 12
+      Width = 80
+      Caption = '🔍 查询'
+      Font.Name = 'Microsoft YaHei'
+      Font.Size = 9
+      ParentFont = False
+      OnClick = btnQueryClick
+    end
+    object lblTotal: TLabel
+      Left = 450
+      Height = 20
+      Top = 8
+      Width = 72
+      Caption = '报销合计:'
+      Font.Name = 'Microsoft YaHei'
+      Font.Size = 9
+      Font.Style = [fsBold]
+      ParentFont = False
+    end
+    object lblTotalValue: TLabel
+      Left = 530
+      Height = 20
+      Top = 8
+      Width = 40
+      Caption = '¥0.00'
+      Font.Color = clRed
+      Font.Name = 'Microsoft YaHei'
+      Font.Size = 9
+      Font.Style = [fsBold]
+      ParentFont = False
+    end
+    object lblPrepaid: TLabel
+      Left = 650
+      Height = 20
+      Top = 8
+      Width = 72
+      Caption = '预付合计:'
+      Font.Name = 'Microsoft YaHei'
+      Font.Size = 9
+      ParentFont = False
+    end
+    object lblPrepaidValue: TLabel
+      Left = 730
+      Height = 20
+      Top = 8
+      Width = 40
+      Caption = '¥0.00'
+      Font.Name = 'Microsoft YaHei'
+      Font.Size = 9
+      ParentFont = False
+    end
+    object lblCount: TLabel
+      Left = 450
+      Height = 20
+      Top = 28
+      Width = 36
+      Caption = '笔数:'
+      Font.Name = 'Microsoft YaHei'
+      Font.Size = 9
+      ParentFont = False
+    end
+    object lblCountValue: TLabel
+      Left = 530
+      Height = 20
+      Top = 28
+      Width = 20
+      Caption = '0'
+      Font.Name = 'Microsoft YaHei'
+      Font.Size = 9
+      Font.Style = [fsBold]
+      ParentFont = False
+    end
+  end
+  object pnlLeft: TPanel
+    Left = 0
+    Height = 520
+    Top = 50
+    Width = 350
+    Align = alLeft
+    BevelOuter = bvNone
+    object dbgReport: TDBGrid
+      Left = 0
+      Height = 520
+      Top = 0
+      Width = 350
+      Align = alClient
+      DataSource = dtsReport
+      Font.Name = 'Microsoft YaHei'
+      Font.Size = 9
+      ParentFont = False
+      ReadOnly = True
+      TabOrder = 0
+      TitleFont.Name = 'Microsoft YaHei'
+      TitleFont.Size = 8
+      TitleFont.Style = [fsBold]
+      OnCellClick = dbgReportCellClick
+    end
+  end
+  object pnlRight: TPanel
+    Left = 350
+    Height = 520
+    Top = 50
+    Width = 550
+    Align = alClient
+    BevelOuter = bvNone
+    object dbgDetail: TDBGrid
+      Left = 0
+      Height = 520
+      Top = 0
+      Width = 550
+      Align = alClient
+      DataSource = dtsDetail
+      Font.Name = 'Microsoft YaHei'
+      Font.Size = 9
+      ParentFont = False
+      ReadOnly = True
+      TabOrder = 0
+      TitleFont.Name = 'Microsoft YaHei'
+      TitleFont.Size = 8
+      TitleFont.Style = [fsBold]
+    end
+  end
+  object dtsReport: TDataSource
+    Left = 280
+    Top = 8
+  end
+  object dtsDetail: TDataSource
+    Left = 800
+    Top = 8
+  end
+end

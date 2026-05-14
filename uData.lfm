@@ -1,0 +1,29 @@
+object dmData: TdmData
+  OldCreateOrder = True
+  OnCreate = DataModuleCreate
+  OnDestroy = DataModuleDestroy
+  Height = 300
+  Width = 400
+  object conn: TSQLite3Connection
+    Transaction = trans
+    Left = 40
+    Top = 24
+  end
+  object trans: TSQLTransaction
+    Database = conn
+    Left = 120
+    Top = 24
+  end
+  object qryMain: TSQLQuery
+    Database = conn
+    Transaction = trans
+    Left = 40
+    Top = 96
+  end
+  object qryAux: TSQLQuery
+    Database = conn
+    Transaction = trans
+    Left = 120
+    Top = 96
+  end
+end

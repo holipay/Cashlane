@@ -1,0 +1,123 @@
+object frmCategory: TfrmCategory
+  Left = 300
+  Height = 500
+  Top = 150
+  Width = 700
+  BorderStyle = bsDialog
+  Caption = '🏷️ 科目分类管理'
+  Position = poMainFormCenter
+  OnCreate = FormCreate
+  OnShow = FormShow
+  object pnlTop: TPanel
+    Left = 0
+    Height = 50
+    Top = 0
+    Width = 700
+    Align = alTop
+    BevelOuter = bvNone
+    Color = 15790320
+    ParentColor = False
+    object btnAddMain: TSpeedButton
+      Left = 8
+      Height = 32
+      Top = 10
+      Width = 100
+      Caption = '➕ 新增一级'
+      Font.Name = 'Microsoft YaHei'
+      Font.Size = 9
+      ParentFont = False
+      OnClick = btnAddMainClick
+    end
+    object btnAddSub: TSpeedButton
+      Left = 116
+      Height = 32
+      Top = 10
+      Width = 100
+      Caption = '➕ 新增二级'
+      Font.Name = 'Microsoft YaHei'
+      Font.Size = 9
+      ParentFont = False
+      OnClick = btnAddSubClick
+    end
+    object btnEdit: TSpeedButton
+      Left = 224
+      Height = 32
+      Top = 10
+      Width = 80
+      Caption = '✏️ 编辑'
+      Font.Name = 'Microsoft YaHei'
+      Font.Size = 9
+      ParentFont = False
+      OnClick = btnEditClick
+    end
+    object btnDelete: TSpeedButton
+      Left = 312
+      Height = 32
+      Top = 10
+      Width = 80
+      Caption = '🗑️ 删除'
+      Font.Name = 'Microsoft YaHei'
+      Font.Size = 9
+      ParentFont = False
+      OnClick = btnDeleteClick
+    end
+  end
+  object tvCategory: TTreeView
+    Left = 0
+    Height = 400
+    Top = 50
+    Width = 200
+    Align = alLeft
+    Font.Name = 'Microsoft YaHei'
+    Font.Size = 10
+    ParentFont = False
+    ReadOnly = True
+    TabOrder = 0
+    OnSelectionChanged = tvCategorySelectionChanged
+  end
+  object pnlRight: TPanel
+    Left = 200
+    Height = 400
+    Top = 50
+    Width = 500
+    Align = alClient
+    BevelOuter = bvNone
+    object dbgSub: TDBGrid
+      Left = 0
+      Height = 400
+      Top = 0
+      Width = 500
+      Align = alClient
+      DataSource = dtsCategory
+      Font.Name = 'Microsoft YaHei'
+      Font.Size = 9
+      ParentFont = False
+      ReadOnly = True
+      TabOrder = 0
+      TitleFont.Name = 'Microsoft YaHei'
+      TitleFont.Size = 8
+      TitleFont.Style = [fsBold]
+    end
+  end
+  object pnlBottom: TPanel
+    Left = 0
+    Height = 40
+    Top = 450
+    Width = 700
+    Align = alBottom
+    BevelOuter = bvNone
+    object btnClose: TBitBtn
+      Left = 300
+      Height = 28
+      Top = 6
+      Width = 100
+      Caption = '关闭'
+      Kind = bkClose
+      TabOrder = 0
+    end
+  end
+  object dtsCategory: TDataSource
+    Left = 620
+    Top = 8
+  end
+end

@@ -1,0 +1,124 @@
+object frmContacts: TfrmContacts
+  Left = 300
+  Height = 500
+  Top = 150
+  Width = 800
+  BorderStyle = bsDialog
+  Caption = '👤 联系人/供应商管理'
+  Position = poMainFormCenter
+  OnCreate = FormCreate
+  OnShow = FormShow
+  object pnlTop: TPanel
+    Left = 0
+    Height = 50
+    Top = 0
+    Width = 800
+    Align = alTop
+    BevelOuter = bvNone
+    Color = 15790320
+    ParentColor = False
+    object btnAdd: TSpeedButton
+      Left = 8
+      Height = 32
+      Top = 10
+      Width = 80
+      Caption = '➕ 新增'
+      Font.Name = 'Microsoft YaHei'
+      Font.Size = 9
+      ParentFont = False
+      OnClick = btnAddClick
+    end
+    object btnEdit: TSpeedButton
+      Left = 96
+      Height = 32
+      Top = 10
+      Width = 80
+      Caption = '✏️ 编辑'
+      Font.Name = 'Microsoft YaHei'
+      Font.Size = 9
+      ParentFont = False
+      OnClick = btnEditClick
+    end
+    object btnDelete: TSpeedButton
+      Left = 184
+      Height = 32
+      Top = 10
+      Width = 80
+      Caption = '🗑️ 删除'
+      Font.Name = 'Microsoft YaHei'
+      Font.Size = 9
+      ParentFont = False
+      OnClick = btnDeleteClick
+    end
+    object edtSearch: TEdit
+      Left = 320
+      Height = 28
+      Top = 12
+      Width = 200
+      Font.Name = 'Microsoft YaHei'
+      Font.Size = 9
+      ParentFont = False
+      TabOrder = 0
+      TextHint = '搜索联系人...'
+    end
+    object btnSearch: TSpeedButton
+      Left = 528
+      Height = 28
+      Top = 12
+      Width = 60
+      Caption = '🔍 搜索'
+      Font.Name = 'Microsoft YaHei'
+      Font.Size = 9
+      ParentFont = False
+      OnClick = btnSearchClick
+    end
+  end
+  object dbgContacts: TDBGrid
+    Left = 0
+    Height = 390
+    Top = 50
+    Width = 800
+    Align = alClient
+    DataSource = dtsContacts
+    Font.Name = 'Microsoft YaHei'
+    Font.Size = 9
+    ParentFont = False
+    ReadOnly = True
+    TabOrder = 0
+    TitleFont.Name = 'Microsoft YaHei'
+    TitleFont.Size = 8
+    TitleFont.Style = [fsBold]
+    AlternateColor = 16053492
+  end
+  object pnlBottom: TPanel
+    Left = 0
+    Height = 50
+    Top = 440
+    Width = 800
+    Align = alBottom
+    BevelOuter = bvNone
+    object btnClose: TBitBtn
+      Left = 350
+      Height = 32
+      Top = 10
+      Width = 100
+      Caption = '关闭'
+      Kind = bkClose
+      TabOrder = 0
+    end
+    object navContacts: TDBNavigator
+      Left = 8
+      Height = 30
+      Top = 10
+      Width = 160
+      DataSource = dtsContacts
+      VisibleButtons = [nbFirst, nbPrior, nbNext, nbLast]
+      Flat = True
+      TabOrder = 1
+    end
+  end
+  object dtsContacts: TDataSource
+    Left = 720
+    Top = 8
+  end
+end
