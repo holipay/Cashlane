@@ -6,22 +6,29 @@ interface
 
 uses
   Classes, SysUtils, Forms, Controls, Graphics, Dialogs, StdCtrls, Buttons,
-  ExtCtrls, ComCtrls, DBGrids, DBCtrls, StrUtils;
+  ExtCtrls, DBGrids, DBCtrls, StrUtils;
 
 type
 
   { TfrmExpenseEntry }
 
   TfrmExpenseEntry = class(TForm)
+    { Header }
     pnlHeader: TPanel;
+    shpHeaderBorder: TShape;
     lblHeaderTitle: TLabel;
-    pnlButtons: TPanel;
-    btnSave: TBitBtn;
-    btnCancel: TBitBtn;
-    pcEntry: TPageControl;
-    tsBasic: TTabSheet;
-    tsDetail: TTabSheet;
+    btnClose: TSpeedButton;
 
+    { Tab bar }
+    pnlTabBar: TPanel;
+    shpTabBorder: TShape;
+    lblTabBasic: TLabel;
+    lblTabSettle: TLabel;
+    shpTabIndicator: TShape;
+
+    { Basic info panel }
+    pnlBasic: TPanel;
+    pnlBasicScroll: TScrollBox;
     lblEntryDate: TLabel;
     edtEntryDate: TEdit;
     lblOccurDate: TLabel;
@@ -42,7 +49,6 @@ type
     edtSID: TEdit;
     lblDocId: TLabel;
     edtDocId: TEdit;
-
     lblQuantity: TLabel;
     edtQuantity: TEdit;
     lblUnitPrice: TLabel;
@@ -54,6 +60,9 @@ type
     lblReimburse: TLabel;
     edtReimburse: TEdit;
 
+    { Settle info panel }
+    pnlSettle: TPanel;
+    pnlSettleScroll: TScrollBox;
     lblMethod: TLabel;
     cmbMethod: TComboBox;
     lblPayer: TLabel;
@@ -75,14 +84,26 @@ type
     lblNotes: TLabel;
     memNotes: TMemo;
 
+    { Footer }
+    pnlButtons: TPanel;
+    shpButtonsBorder: TShape;
+    btnSave: TBitBtn;
+    btnCancel: TBitBtn;
+
+    { Events }
     procedure FormCreate(Sender: TObject);
     procedure btnSaveClick(Sender: TObject);
     procedure btnCancelClick(Sender: TObject);
     procedure cmbCat1Change(Sender: TObject);
     procedure edtQuantityChange(Sender: TObject);
+    procedure lblTabBasicClick(Sender: TObject);
+    procedure lblTabSettleClick(Sender: TObject);
+
   private
     FExpenseId: Integer;
     FIsAdd: Boolean;
+    procedure SwitchToBasic;
+    procedure SwitchToSettle;
     procedure LoadLookups;
     procedure LoadCat2(AParentId: Integer);
     procedure LoadExpense(AId: Integer);
@@ -106,11 +127,49 @@ procedure TfrmExpenseEntry.FormCreate(Sender: TObject);
 begin
   Position := poMainFormCenter;
   BorderStyle := bsDialog;
-  Width := 700;
-  Height := 620;
+  Width := 800;
+  Height := 660;
   Caption := '费用录入';
   Color := $00F3F3F3;
 end;
+
+{ ===== Tab Switching ===== }
+
+procedure TfrmExpenseEntry.SwitchToBasic;
+begin
+  pnlBasic.Visible := True;
+  pnlSettle.Visible := False;
+  lblTabBasic.Font.Color := $000078D4;
+  lblTabBasic.Font.Style := [fsBold];
+  lblTabSettle.Font.Color := $00999999;
+  lblTabSettle.Font.Style := [];
+  shpTabIndicator.Left := lblTabBasic.Left;
+  shpTabIndicator.Width := 60;
+end;
+
+procedure TfrmExpenseEntry.SwitchToSettle;
+begin
+  pnlBasic.Visible := False;
+  pnlSettle.Visible := True;
+  lblTabSettle.Font.Color := $000078D4;
+  lblTabSettle.Font.Style := [fsBold];
+  lblTabBasic.Font.Color := $00999999;
+  lblTabBasic.Font.Style := [];
+  shpTabIndicator.Left := lblTabSettle.Left;
+  shpTabIndicator.Width := 60;
+end;
+
+procedure TfrmExpenseEntry.lblTabBasicClick(Sender: TObject);
+begin
+  SwitchToBasic;
+end;
+
+procedure TfrmExpenseEntry.lblTabSettleClick(Sender: TObject);
+begin
+  SwitchToSettle;
+end;
+
+{ ===== Data Loading ===== }
 
 procedure TfrmExpenseEntry.LoadLookups;
 begin
@@ -329,6 +388,8 @@ begin
   Result := qty * price * rate;
 end;
 
+{ ===== Public: Show Add / Edit ===== }
+
 function TfrmExpenseEntry.ShowAdd: Boolean;
 begin
   FIsAdd := True;
@@ -351,7 +412,7 @@ begin
   edtBatch.Text := '';
   memNotes.Text := '';
   chkAsset.Checked := False;
-  pcEntry.ActivePage := tsBasic;
+  SwitchToBasic;
   Result := ShowModal = mrOK;
 end;
 
@@ -363,9 +424,11 @@ begin
   lblHeaderTitle.Caption := '✏️ 编辑费用记录';
   LoadLookups;
   LoadExpense(AId);
-  pcEntry.ActivePage := tsBasic;
+  SwitchToBasic;
   Result := ShowModal = mrOK;
 end;
+
+{ ===== Save ===== }
 
 procedure TfrmExpenseEntry.btnSaveClick(Sender: TObject);
 var
