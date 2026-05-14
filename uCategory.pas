@@ -5,7 +5,7 @@ unit uCategory;
 interface
 
 uses
-  Classes, SysUtils, Forms, Controls, Graphics, Dialogs, Buttons,
+  Classes, SysUtils, Forms, Controls, Graphics, Dialogs, StdCtrls, Buttons,
   ExtCtrls, ComCtrls, DBGrids, DBCtrls, DB, StrUtils;
 
 type
