@@ -13,7 +13,7 @@ type
   { TfrmMain }
 
   TfrmMain = class(TForm)
-    // Sidebar
+    { Sidebar }
     pnlSidebar: TPanel;
     pnlSidebarHeader: TPanel;
     shpLogo: TShape;
@@ -21,14 +21,24 @@ type
     lblBrand: TLabel;
     lblBrandSub: TLabel;
 
-    // Nav sections
+    { Sidebar search }
+    pnlSidebarSearch: TPanel;
+    edtSidebarSearch: TEdit;
+
+    { Active indicator }
+    shpNavIndicator: TShape;
+
+    { Nav area }
+    pnlNavArea: TPanel;
+
+    { Nav sections }
     lblNavSection1: TLabel;
     lblNavSection2: TLabel;
     lblNavSection3: TLabel;
     lblNavSection4: TLabel;
     lblNavSection5: TLabel;
 
-    // Nav items
+    { Nav items }
     lblNavDashboard: TLabel;
     lblNavExpense: TLabel;
     lblNavContacts: TLabel;
@@ -38,17 +48,17 @@ type
     lblNavExport: TLabel;
     lblNavSettings: TLabel;
 
-    // Main area
+    { Main area }
     pnlMain: TPanel;
     pnlTopbar: TPanel;
     lblBreadcrumb: TLabel;
     btnRefresh: TSpeedButton;
     btnNotification: TSpeedButton;
 
-    // Content scroll
+    { Content scroll }
     scrContent: TScrollBox;
 
-    // Stats cards
+    { Stats cards }
     pnlStats: TPanel;
     pnlStat1: TPanel; shpStat1: TShape; lblStat1Icon: TLabel;
     lblStat1Value: TLabel; lblStat1Label: TLabel;
@@ -59,7 +69,7 @@ type
     pnlStat4: TPanel; shpStat4: TShape; lblStat4Icon: TLabel;
     lblStat4Value: TLabel; lblStat4Label: TLabel;
 
-    // Filter card
+    { Filter card }
     pnlFilterCard: TPanel;
     pnlFilterInner: TPanel;
     pnlFilterHeader: TPanel;
@@ -67,7 +77,7 @@ type
     lblFilterToggle: TLabel;
     pnlFilterBody: TPanel;
 
-    // Filter controls
+    { Filter controls }
     lblCompany: TLabel; cmbCompany: TComboBox;
     lblDept: TLabel; cmbDept: TComboBox;
     lblCat1: TLabel; cmbCat1: TComboBox;
@@ -77,11 +87,12 @@ type
     lblDateFrom: TLabel; edtDateFrom: TEdit;
     lblDateTo: TLabel; edtDateTo: TEdit;
     chkDateFilter: TCheckBox;
+    lblSearch: TLabel;
     edtSearch: TEdit;
     btnSearch: TSpeedButton;
     btnReset: TSpeedButton;
 
-    // Table card
+    { Table card }
     pnlTableCard: TPanel;
     pnlTableInner: TPanel;
     pnlToolbar: TPanel;
@@ -99,15 +110,16 @@ type
     lblTotalAmount: TLabel;
     navExpense: TDBNavigator;
 
-    // Timer
+    { Timer & Datasource }
     tmrToast: TTimer;
     dtsExpense: TDataSource;
 
+    { Events }
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure FormResize(Sender: TObject);
 
-    // Nav clicks
+    { Nav clicks }
     procedure lblNavDashboardClick(Sender: TObject);
     procedure lblNavExpenseClick(Sender: TObject);
     procedure lblNavContactsClick(Sender: TObject);
@@ -117,17 +129,20 @@ type
     procedure lblNavExportClick(Sender: TObject);
     procedure lblNavSettingsClick(Sender: TObject);
 
-    // Nav hover
+    { Nav hover }
     procedure NavItemMouseEnter(Sender: TObject);
     procedure NavItemMouseLeave(Sender: TObject);
 
-    // Filter
+    { Sidebar search }
+    procedure edtSidebarSearchChange(Sender: TObject);
+
+    { Filter }
     procedure lblFilterToggleClick(Sender: TObject);
     procedure cmbCat1Change(Sender: TObject);
     procedure btnSearchClick(Sender: TObject);
     procedure btnResetClick(Sender: TObject);
 
-    // Table
+    { Table }
     procedure btnAddClick(Sender: TObject);
     procedure btnEditClick(Sender: TObject);
     procedure btnDeleteClick(Sender: TObject);
@@ -137,13 +152,15 @@ type
     procedure dbgExpensesPrepareCanvas(sender: TObject; DataCol: Integer;
       Column: TColumn; AState: TGridDrawState);
 
-    // Toast
+    { Toast }
     procedure tmrToastTimer(Sender: TObject);
 
   private
     FActiveNav: TLabel;
     FFilterOpen: Boolean;
+    FNavItems: array[0..7] of TLabel;
     procedure SetActiveNav(ALabel: TLabel);
+    procedure PositionNavIndicator;
     procedure UpdateBreadcrumb(const APage: string);
     procedure InitFilters;
     procedure LoadCat1;
@@ -156,7 +173,7 @@ type
     function BuildFilter: string;
     function GetSelectedExpenseId: Integer;
     procedure ShowToast(const AMsg: string);
-    procedure ApplyCardShadow(APanel: TPanel);
+    procedure ApplyCardStyle(APanel: TPanel);
   end;
 
 var
@@ -174,13 +191,23 @@ procedure TfrmMain.FormCreate(Sender: TObject);
 begin
   Caption := 'Cashlane - 费用管理系统';
   Position := poScreenCenter;
-  Width := 1280;
-  Height := 750;
+  Width := 1360;
+  Height := 780;
   WindowState := wsMaximized;
   Color := $00F3F3F3;
 
   FFilterOpen := True;
   FActiveNav := lblNavDashboard;
+
+  { Register all nav items for sidebar search filtering }
+  FNavItems[0] := lblNavDashboard;
+  FNavItems[1] := lblNavExpense;
+  FNavItems[2] := lblNavContacts;
+  FNavItems[3] := lblNavCategory;
+  FNavItems[4] := lblNavReport;
+  FNavItems[5] := lblNavImport;
+  FNavItems[6] := lblNavExport;
+  FNavItems[7] := lblNavSettings;
 end;
 
 procedure TfrmMain.FormShow(Sender: TObject);
@@ -190,40 +217,62 @@ begin
   InitFilters;
   RefreshExpenseList;
   UpdateStats;
-  ApplyCardShadow(pnlStat1);
-  ApplyCardShadow(pnlStat2);
-  ApplyCardShadow(pnlStat3);
-  ApplyCardShadow(pnlStat4);
+  ApplyCardStyle(pnlStat1);
+  ApplyCardStyle(pnlStat2);
+  ApplyCardStyle(pnlStat3);
+  ApplyCardStyle(pnlStat4);
+  ApplyCardStyle(pnlFilterInner);
+  ApplyCardStyle(pnlTableInner);
 end;
 
 procedure TfrmMain.FormResize(Sender: TObject);
 var
-  w, gap: Integer;
+  w, cardW, gap: Integer;
 begin
-  // Auto-fit stats cards
   if not Assigned(pnlStats) then Exit;
-  w := pnlStats.Width - 32; // 16px margin each side
+  w := pnlStats.Width - 32;
   gap := 12;
-  pnlStat1.SetBounds(16, 10, (w - gap * 3) div 4, 80);
-  pnlStat2.SetBounds(16 + pnlStat1.Width + gap, 10, (w - gap * 3) div 4, 80);
-  pnlStat3.SetBounds(16 + (pnlStat1.Width + gap) * 2, 10, (w - gap * 3) div 4, 80);
-  pnlStat4.SetBounds(16 + (pnlStat1.Width + gap) * 3, 10, (w - gap * 3) div 4, 80);
+  cardW := (w - gap * 3) div 4;
+
+  pnlStat1.SetBounds(16, 10, cardW, 80);
+  pnlStat2.SetBounds(16 + cardW + gap, 10, cardW, 80);
+  pnlStat3.SetBounds(16 + (cardW + gap) * 2, 10, cardW, 80);
+  pnlStat4.SetBounds(16 + (cardW + gap) * 3, 10, cardW, 80);
+
+  { Reposition nav indicator on resize }
+  PositionNavIndicator;
 end;
 
-// ===== Sidebar Navigation =====
+{ ===== Sidebar Navigation ===== }
 
 procedure TfrmMain.SetActiveNav(ALabel: TLabel);
 begin
-  // Reset previous
+  { Reset previous active nav }
   if Assigned(FActiveNav) then
   begin
     FActiveNav.Color := $001B1B1B;
     FActiveNav.Font.Color := $00BBBBBB;
   end;
-  // Set new active
+
+  { Set new active nav }
   FActiveNav := ALabel;
   ALabel.Color := $003A3A3A;
   ALabel.Font.Color := clWhite;
+
+  { Move the blue indicator bar }
+  PositionNavIndicator;
+end;
+
+procedure TfrmMain.PositionNavIndicator;
+begin
+  if Assigned(FActiveNav) and Assigned(shpNavIndicator) then
+  begin
+    shpNavIndicator.Left := 0;
+    shpNavIndicator.Top := FActiveNav.Top + 2;
+    shpNavIndicator.Height := FActiveNav.Height - 4;
+    shpNavIndicator.Width := 3;
+    shpNavIndicator.BringToFront;
+  end;
 end;
 
 procedure TfrmMain.UpdateBreadcrumb(const APage: string);
@@ -242,6 +291,52 @@ begin
   if Sender <> FActiveNav then
     TLabel(Sender).Color := $001B1B1B;
 end;
+
+{ ===== Sidebar Search ===== }
+
+procedure TfrmMain.edtSidebarSearchChange(Sender: TObject);
+var
+  q: string;
+  i: Integer;
+  navLabel: string;
+begin
+  q := LowerCase(Trim(edtSidebarSearch.Text));
+
+  { Show/hide nav items based on search query }
+  lblNavSection1.Visible := (q = '');
+  lblNavSection2.Visible := (q = '');
+  lblNavSection3.Visible := (q = '');
+  lblNavSection4.Visible := (q = '');
+  lblNavSection5.Visible := (q = '');
+
+  for i := 0 to High(FNavItems) do
+  begin
+    navLabel := LowerCase(FNavItems[i].Caption);
+    { Extract text after emoji icons }
+    navLabel := StringReplace(navLabel, '📊', '', [rfReplaceAll]);
+    navLabel := StringReplace(navLabel, '📋', '', [rfReplaceAll]);
+    navLabel := StringReplace(navLabel, '👤', '', [rfReplaceAll]);
+    navLabel := StringReplace(navLabel, '🏷️', '', [rfReplaceAll]);
+    navLabel := StringReplace(navLabel, '📈', '', [rfReplaceAll]);
+    navLabel := StringReplace(navLabel, '📥', '', [rfReplaceAll]);
+    navLabel := StringReplace(navLabel, '📤', '', [rfReplaceAll]);
+    navLabel := StringReplace(navLabel, '⚙️', '', [rfReplaceAll]);
+    navLabel := Trim(navLabel);
+
+    if (q = '') or (Pos(q, navLabel) > 0) then
+      FNavItems[i].Visible := True
+    else
+      FNavItems[i].Visible := False;
+  end;
+
+  { Always keep active nav visible }
+  if Assigned(FActiveNav) then
+    FActiveNav.Visible := True;
+
+  PositionNavIndicator;
+end;
+
+{ ===== Nav Click Handlers ===== }
 
 procedure TfrmMain.lblNavDashboardClick(Sender: TObject);
 begin
@@ -303,7 +398,7 @@ begin
   ShowToast('⚙️ 设置功能开发中...');
 end;
 
-// ===== Filters =====
+{ ===== Filters ===== }
 
 procedure TfrmMain.InitFilters;
 begin
@@ -335,7 +430,7 @@ begin
   cmbMethod.Items.Add('其他');
   cmbMethod.ItemIndex := 0;
 
-  edtSearch.TextHint := '搜索明细/发票内容/备注...';
+  edtSearch.TextHint := '搜索明细 / 发票内容 / 备注...';
 end;
 
 procedure TfrmMain.LoadCompanies;
@@ -420,14 +515,14 @@ begin
   if FFilterOpen then
   begin
     lblFilterToggle.Caption := '▼';
-    pnlFilterInner.Height := 130;
-    pnlFilterCard.Height := 140;
+    pnlFilterInner.Height := 138;
+    pnlFilterCard.Height := 148;
   end
   else
   begin
     lblFilterToggle.Caption := '▶';
-    pnlFilterInner.Height := 40;
-    pnlFilterCard.Height := 48;
+    pnlFilterInner.Height := 44;
+    pnlFilterCard.Height := 54;
   end;
 end;
 
@@ -485,7 +580,7 @@ begin
   RefreshExpenseList;
 end;
 
-// ===== Data =====
+{ ===== Data ===== }
 
 procedure TfrmMain.RefreshExpenseList;
 var
@@ -533,7 +628,6 @@ begin
   pending := 0;
   balance := 0;
 
-  // Count current month records
   dmData.OpenQuery(dmData.qryAux,
     'SELECT COUNT(*) AS cnt, COALESCE(SUM(reimburse_amount), 0) AS total_r, ' +
     'COALESCE(SUM(prepaid), 0) AS total_p FROM expenses ' +
@@ -545,13 +639,11 @@ begin
     totalPrepaid := dmData.qryAux.FieldByName('total_p').AsFloat;
   end;
 
-  // Pending count
   dmData.OpenQuery(dmData.qryAux,
     'SELECT COUNT(*) AS cnt FROM expenses WHERE reimburse_status IN (''填单'', ''签录'')');
   if not dmData.qryAux.EOF then
     pending := dmData.qryAux.FieldByName('cnt').AsInteger;
 
-  // Balance (prepaid - settled)
   dmData.OpenQuery(dmData.qryAux,
     'SELECT COALESCE(SUM(prepaid - reimburse_amount), 0) AS bal FROM expenses WHERE prepaid > 0');
   if not dmData.qryAux.EOF then
@@ -570,7 +662,7 @@ begin
     Result := dmData.qryMain.FieldByName('id').AsInteger;
 end;
 
-// ===== Toolbar =====
+{ ===== Toolbar ===== }
 
 procedure TfrmMain.btnAddClick(Sender: TObject);
 begin
@@ -639,7 +731,7 @@ begin
   ShowToast('🔄 数据已刷新');
 end;
 
-// ===== Grid =====
+{ ===== Grid ===== }
 
 procedure TfrmMain.dbgExpensesDblClick(Sender: TObject);
 begin
@@ -653,19 +745,19 @@ var
 begin
   fn := Column.FieldName;
 
-  // Amount columns: bold + red
+  { Amount columns: bold + red }
   if (fn = 'prepaid') or (fn = 'reimburse_amount') then
   begin
     dbgExpenses.Canvas.Font.Style := [fsBold];
-    dbgExpenses.Canvas.Font.Color := $001C1CC4; // Red
+    dbgExpenses.Canvas.Font.Color := $001C1CC4;
   end;
 
-  // Status column: colored badges
+  { Status column: colored badge backgrounds }
   if fn = 'reimburse_status' then
   begin
     case Column.Field.AsString of
       '完成': begin
-        dbgExpenses.Canvas.Font.Color := $000F7B0F; // Green
+        dbgExpenses.Canvas.Font.Color := $000F7B0F;
         dbgExpenses.Canvas.Brush.Color := $00DDF6DD;
       end;
       '取消': begin
@@ -673,11 +765,11 @@ begin
         dbgExpenses.Canvas.Brush.Color := $00F0F0F0;
       end;
       '填单': begin
-        dbgExpenses.Canvas.Font.Color := $00005D9D; // Amber
+        dbgExpenses.Canvas.Font.Color := $00005D9D;
         dbgExpenses.Canvas.Brush.Color := $00CEFFF4;
       end;
       '签录', '发票': begin
-        dbgExpenses.Canvas.Font.Color := $00D47800; // Blue
+        dbgExpenses.Canvas.Font.Color := $00D47800;
         dbgExpenses.Canvas.Brush.Color := $00FDF4E8;
       end;
       '付款': begin
@@ -691,17 +783,15 @@ begin
     dbgExpenses.Canvas.Font.Style := [fsBold];
   end;
 
-  // ID column accent
+  { ID column accent color }
   if fn = 'doc_id' then
     dbgExpenses.Canvas.Font.Color := $00D47800;
 end;
 
-// ===== Toast =====
+{ ===== Toast ===== }
 
 procedure TfrmMain.ShowToast(const AMsg: string);
 begin
-  // Use caption of notification button area for toast
-  // Simple approach: show in breadcrumb temporarily
   lblBreadcrumb.Caption := AMsg;
   tmrToast.Enabled := False;
   tmrToast.Enabled := True;
@@ -710,7 +800,6 @@ end;
 procedure TfrmMain.tmrToastTimer(Sender: TObject);
 begin
   tmrToast.Enabled := False;
-  // Restore breadcrumb
   if Assigned(FActiveNav) then
   begin
     if FActiveNav = lblNavDashboard then UpdateBreadcrumb('仪表盘')
@@ -724,12 +813,10 @@ begin
   end;
 end;
 
-// ===== Helpers =====
+{ ===== Helpers ===== }
 
-procedure TfrmMain.ApplyCardShadow(APanel: TPanel);
+procedure TfrmMain.ApplyCardStyle(APanel: TPanel);
 begin
-  // LCL doesn't support CSS box-shadow natively,
-  // but we can set bevel for a subtle border effect
   APanel.BevelOuter := bvNone;
   APanel.BorderStyle := bsSingle;
   APanel.BorderWidth := 1;

@@ -1,8 +1,8 @@
 object frmMain: TfrmMain
   Left = 200
-  Height = 750
+  Height = 780
   Top = 100
-  Width = 1280
+  Width = 1360
   Caption = 'Cashlane - 费用管理系统'
   Position = poScreenCenter
   WindowState = wsMaximized
@@ -10,37 +10,40 @@ object frmMain: TfrmMain
   OnShow = FormShow
   OnResize = FormResize
   Color = 15921906
+
+  { ===== Sidebar ===== }
   object pnlSidebar: TPanel
     Left = 0
-    Height = 750
+    Height = 780
     Top = 0
-    Width = 220
+    Width = 260
     Align = alLeft
     BevelOuter = bvNone
     Color = 1776411
     ParentColor = False
+
     object pnlSidebarHeader: TPanel
       Left = 0
-      Height = 64
+      Height = 72
       Top = 0
-      Width = 220
+      Width = 260
       Align = alTop
       BevelOuter = bvNone
       Color = 1776411
       ParentColor = False
       object shpLogo: TShape
-        Left = 16
+        Left = 20
         Height = 36
-        Top = 14
+        Top = 18
         Width = 36
         Brush.Color = 42640
         Pen.Color = 42640
         Shape = stRoundRect
       end
       object lblLogoLetter: TLabel
-        Left = 24
+        Left = 28
         Height = 22
-        Top = 20
+        Top = 24
         Width = 20
         Alignment = taCenter
         Caption = 'C'
@@ -51,9 +54,9 @@ object frmMain: TfrmMain
         ParentFont = False
       end
       object lblBrand: TLabel
-        Left = 60
+        Left = 64
         Height = 22
-        Top = 16
+        Top = 20
         Width = 72
         Caption = 'Cashlane'
         Font.Color = clWhite
@@ -63,9 +66,9 @@ object frmMain: TfrmMain
         ParentFont = False
       end
       object lblBrandSub: TLabel
-        Left = 60
+        Left = 64
         Height = 14
-        Top = 38
+        Top = 42
         Width = 100
         Caption = '费用管理系统 v1.0'
         Font.Color = 6710886
@@ -74,279 +77,347 @@ object frmMain: TfrmMain
         ParentFont = False
       end
     end
-    object lblNavSection1: TLabel
-      Left = 16
-      Height = 14
-      Top = 76
-      Width = 36
-      Caption = '概览'
-      Font.Color = 6710886
-      Font.Height = -11
-      Font.Name = 'Microsoft YaHei'
-      Font.Style = [fsBold]
-      ParentFont = False
-    end
-    object lblNavDashboard: TLabel
-      Left = 8
-      Height = 32
-      Top = 96
-      Width = 204
-      AutoSize = False
-      Caption = '   📊  仪表盘'
-      Color = 3815994
-      Font.Color = clWhite
-      Font.Height = -13
-      Font.Name = 'Microsoft YaHei'
-      ParentFont = False
+
+    { Sidebar Search }
+    object pnlSidebarSearch: TPanel
+      Left = 0
+      Height = 48
+      Top = 72
+      Width = 260
+      Align = alTop
+      BevelOuter = bvNone
+      Color = 1776411
       ParentColor = False
-      Layout = tlCenter
-      OnClick = lblNavDashboardClick
-      OnMouseEnter = NavItemMouseEnter
-      OnMouseLeave = NavItemMouseLeave
+      object edtSidebarSearch: TEdit
+        Left = 12
+        Height = 28
+        Top = 10
+        Width = 236
+        TextHint = '🔍  搜索功能...'
+        Font.Name = 'Microsoft YaHei'
+        Font.Size = 9
+        ParentFont = False
+        BorderStyle = bsNone
+        Color = 2763306
+        Font.Color = 13421772
+        OnChange = edtSidebarSearchChange
+        TabOrder = 0
+      end
     end
-    object lblNavSection2: TLabel
-      Left = 16
-      Height = 14
-      Top = 140
-      Width = 72
-      Caption = '业务管理'
-      Font.Color = 6710886
-      Font.Height = -11
-      Font.Name = 'Microsoft YaHei'
-      Font.Style = [fsBold]
-      ParentFont = False
-    end
-    object lblNavExpense: TLabel
-      Left = 8
+
+    { Active Indicator Bar }
+    object shpNavIndicator: TShape
+      Left = 0
       Height = 32
-      Top = 160
-      Width = 204
-      AutoSize = False
-      Caption = '   📋  费用录入'
-      Font.Color = 12303291
-      Font.Height = -13
-      Font.Name = 'Microsoft YaHei'
-      ParentFont = False
-      Layout = tlCenter
-      OnClick = lblNavExpenseClick
-      OnMouseEnter = NavItemMouseEnter
-      OnMouseLeave = NavItemMouseLeave
+      Top = 132
+      Width = 3
+      Brush.Color = 42640
+      Pen.Color = 42640
     end
-    object lblNavContacts: TLabel
-      Left = 8
-      Height = 32
-      Top = 196
-      Width = 204
-      AutoSize = False
-      Caption = '   👤  联系人'
-      Font.Color = 12303291
-      Font.Height = -13
-      Font.Name = 'Microsoft YaHei'
-      ParentFont = False
-      Layout = tlCenter
-      OnClick = lblNavContactsClick
-      OnMouseEnter = NavItemMouseEnter
-      OnMouseLeave = NavItemMouseLeave
-    end
-    object lblNavCategory: TLabel
-      Left = 8
-      Height = 32
-      Top = 232
-      Width = 204
-      AutoSize = False
-      Caption = '   🏷️  科目分类'
-      Font.Color = 12303291
-      Font.Height = -13
-      Font.Name = 'Microsoft YaHei'
-      ParentFont = False
-      Layout = tlCenter
-      OnClick = lblNavCategoryClick
-      OnMouseEnter = NavItemMouseEnter
-      OnMouseLeave = NavItemMouseLeave
-    end
-    object lblNavSection3: TLabel
-      Left = 16
-      Height = 14
-      Top = 276
-      Width = 36
-      Caption = '分析'
-      Font.Color = 6710886
-      Font.Height = -11
-      Font.Name = 'Microsoft YaHei'
-      Font.Style = [fsBold]
-      ParentFont = False
-    end
-    object lblNavReport: TLabel
-      Left = 8
-      Height = 32
-      Top = 296
-      Width = 204
-      AutoSize = False
-      Caption = '   📈  报表统计'
-      Font.Color = 12303291
-      Font.Height = -13
-      Font.Name = 'Microsoft YaHei'
-      ParentFont = False
-      Layout = tlCenter
-      OnClick = lblNavReportClick
-      OnMouseEnter = NavItemMouseEnter
-      OnMouseLeave = NavItemMouseLeave
-    end
-    object lblNavSection4: TLabel
-      Left = 16
-      Height = 14
-      Top = 340
-      Width = 36
-      Caption = '数据'
-      Font.Color = 6710886
-      Font.Height = -11
-      Font.Name = 'Microsoft YaHei'
-      Font.Style = [fsBold]
-      ParentFont = False
-    end
-    object lblNavImport: TLabel
-      Left = 8
-      Height = 32
-      Top = 360
-      Width = 204
-      AutoSize = False
-      Caption = '   📥  导入'
-      Font.Color = 12303291
-      Font.Height = -13
-      Font.Name = 'Microsoft YaHei'
-      ParentFont = False
-      Layout = tlCenter
-      OnClick = lblNavImportClick
-      OnMouseEnter = NavItemMouseEnter
-      OnMouseLeave = NavItemMouseLeave
-    end
-    object lblNavExport: TLabel
-      Left = 8
-      Height = 32
-      Top = 396
-      Width = 204
-      AutoSize = False
-      Caption = '   📤  导出'
-      Font.Color = 12303291
-      Font.Height = -13
-      Font.Name = 'Microsoft YaHei'
-      ParentFont = False
-      Layout = tlCenter
-      OnClick = lblNavExportClick
-      OnMouseEnter = NavItemMouseEnter
-      OnMouseLeave = NavItemMouseLeave
-    end
-    object lblNavSection5: TLabel
-      Left = 16
-      Height = 14
-      Top = 440
-      Width = 36
-      Caption = '系统'
-      Font.Color = 6710886
-      Font.Height = -11
-      Font.Name = 'Microsoft YaHei'
-      Font.Style = [fsBold]
-      ParentFont = False
-    end
-    object lblNavSettings: TLabel
-      Left = 8
-      Height = 32
-      Top = 460
-      Width = 204
-      AutoSize = False
-      Caption = '   ⚙️  设置'
-      Font.Color = 12303291
-      Font.Height = -13
-      Font.Name = 'Microsoft YaHei'
-      ParentFont = False
-      Layout = tlCenter
-      OnClick = lblNavSettingsClick
-      OnMouseEnter = NavItemMouseEnter
-      OnMouseLeave = NavItemMouseLeave
+
+    { Nav Sections & Items - Scrollable area }
+    object pnlNavArea: TPanel
+      Left = 0
+      Height = 660
+      Top = 120
+      Width = 260
+      Align = alClient
+      BevelOuter = bvNone
+      Color = 1776411
+      ParentColor = False
+
+      { 概览 }
+      object lblNavSection1: TLabel
+        Left = 20
+        Height = 14
+        Top = 8
+        Width = 36
+        Caption = '概览'
+        Font.Color = 6710886
+        Font.Height = -11
+        Font.Name = 'Microsoft YaHei'
+        Font.Style = [fsBold]
+        ParentFont = False
+      end
+      object lblNavDashboard: TLabel
+        Left = 8
+        Height = 36
+        Top = 28
+        Width = 244
+        AutoSize = False
+        Caption = '    📊  仪表盘'
+        Color = 3815994
+        Font.Color = clWhite
+        Font.Height = -13
+        Font.Name = 'Microsoft YaHei'
+        ParentFont = False
+        ParentColor = False
+        Layout = tlCenter
+        OnClick = lblNavDashboardClick
+        OnMouseEnter = NavItemMouseEnter
+        OnMouseLeave = NavItemMouseLeave
+      end
+
+      { 业务管理 }
+      object lblNavSection2: TLabel
+        Left = 20
+        Height = 14
+        Top = 80
+        Width = 72
+        Caption = '业务管理'
+        Font.Color = 6710886
+        Font.Height = -11
+        Font.Name = 'Microsoft YaHei'
+        Font.Style = [fsBold]
+        ParentFont = False
+      end
+      object lblNavExpense: TLabel
+        Left = 8
+        Height = 36
+        Top = 100
+        Width = 244
+        AutoSize = False
+        Caption = '    📋  费用录入'
+        Font.Color = 12303291
+        Font.Height = -13
+        Font.Name = 'Microsoft YaHei'
+        ParentFont = False
+        Layout = tlCenter
+        OnClick = lblNavExpenseClick
+        OnMouseEnter = NavItemMouseEnter
+        OnMouseLeave = NavItemMouseLeave
+      end
+      object lblNavContacts: TLabel
+        Left = 8
+        Height = 36
+        Top = 140
+        Width = 244
+        AutoSize = False
+        Caption = '    👤  联系人'
+        Font.Color = 12303291
+        Font.Height = -13
+        Font.Name = 'Microsoft YaHei'
+        ParentFont = False
+        Layout = tlCenter
+        OnClick = lblNavContactsClick
+        OnMouseEnter = NavItemMouseEnter
+        OnMouseLeave = NavItemMouseLeave
+      end
+      object lblNavCategory: TLabel
+        Left = 8
+        Height = 36
+        Top = 180
+        Width = 244
+        AutoSize = False
+        Caption = '    🏷️  科目分类'
+        Font.Color = 12303291
+        Font.Height = -13
+        Font.Name = 'Microsoft YaHei'
+        ParentFont = False
+        Layout = tlCenter
+        OnClick = lblNavCategoryClick
+        OnMouseEnter = NavItemMouseEnter
+        OnMouseLeave = NavItemMouseLeave
+      end
+
+      { 分析 }
+      object lblNavSection3: TLabel
+        Left = 20
+        Height = 14
+        Top = 232
+        Width = 36
+        Caption = '分析'
+        Font.Color = 6710886
+        Font.Height = -11
+        Font.Name = 'Microsoft YaHei'
+        Font.Style = [fsBold]
+        ParentFont = False
+      end
+      object lblNavReport: TLabel
+        Left = 8
+        Height = 36
+        Top = 252
+        Width = 244
+        AutoSize = False
+        Caption = '    📈  报表统计'
+        Font.Color = 12303291
+        Font.Height = -13
+        Font.Name = 'Microsoft YaHei'
+        ParentFont = False
+        Layout = tlCenter
+        OnClick = lblNavReportClick
+        OnMouseEnter = NavItemMouseEnter
+        OnMouseLeave = NavItemMouseLeave
+      end
+
+      { 数据 }
+      object lblNavSection4: TLabel
+        Left = 20
+        Height = 14
+        Top = 304
+        Width = 36
+        Caption = '数据'
+        Font.Color = 6710886
+        Font.Height = -11
+        Font.Name = 'Microsoft YaHei'
+        Font.Style = [fsBold]
+        ParentFont = False
+      end
+      object lblNavImport: TLabel
+        Left = 8
+        Height = 36
+        Top = 324
+        Width = 244
+        AutoSize = False
+        Caption = '    📥  导入'
+        Font.Color = 12303291
+        Font.Height = -13
+        Font.Name = 'Microsoft YaHei'
+        ParentFont = False
+        Layout = tlCenter
+        OnClick = lblNavImportClick
+        OnMouseEnter = NavItemMouseEnter
+        OnMouseLeave = NavItemMouseLeave
+      end
+      object lblNavExport: TLabel
+        Left = 8
+        Height = 36
+        Top = 364
+        Width = 244
+        AutoSize = False
+        Caption = '    📤  导出'
+        Font.Color = 12303291
+        Font.Height = -13
+        Font.Name = 'Microsoft YaHei'
+        ParentFont = False
+        Layout = tlCenter
+        OnClick = lblNavExportClick
+        OnMouseEnter = NavItemMouseEnter
+        OnMouseLeave = NavItemMouseLeave
+      end
+
+      { 系统 }
+      object lblNavSection5: TLabel
+        Left = 20
+        Height = 14
+        Top = 416
+        Width = 36
+        Caption = '系统'
+        Font.Color = 6710886
+        Font.Height = -11
+        Font.Name = 'Microsoft YaHei'
+        Font.Style = [fsBold]
+        ParentFont = False
+      end
+      object lblNavSettings: TLabel
+        Left = 8
+        Height = 36
+        Top = 436
+        Width = 244
+        AutoSize = False
+        Caption = '    ⚙️  设置'
+        Font.Color = 12303291
+        Font.Height = -13
+        Font.Name = 'Microsoft YaHei'
+        ParentFont = False
+        Layout = tlCenter
+        OnClick = lblNavSettingsClick
+        OnMouseEnter = NavItemMouseEnter
+        OnMouseLeave = NavItemMouseLeave
+      end
     end
   end
+
+  { ===== Main Content Area ===== }
   object pnlMain: TPanel
-    Left = 220
-    Height = 750
+    Left = 260
+    Height = 780
     Top = 0
-    Width = 1060
+    Width = 1100
     Align = alClient
     BevelOuter = bvNone
     Color = 15921906
     ParentColor = False
+
+    { Topbar }
     object pnlTopbar: TPanel
       Left = 0
-      Height = 44
+      Height = 48
       Top = 0
-      Width = 1060
+      Width = 1100
       Align = alTop
       BevelOuter = bvNone
       Color = clWhite
       ParentColor = False
       object lblBreadcrumb: TLabel
-        Left = 20
+        Left = 24
         Height = 20
-        Top = 12
+        Top = 14
         Width = 200
         Caption = 'Cashlane / 仪表盘'
         Font.Color = 2434341
-        Font.Height = -13
+        Font.Height = -14
         Font.Name = 'Microsoft YaHei'
         Font.Style = [fsBold]
         ParentFont = False
       end
       object btnRefresh: TSpeedButton
-        Left = 960
-        Height = 30
+        Left = 1010
+        Height = 34
         Top = 7
         Width = 36
         Flat = True
         Caption = '🔄'
-        Font.Size = 10
+        Font.Size = 11
         ParentFont = False
         OnClick = btnRefreshClick
       end
       object btnNotification: TSpeedButton
-        Left = 1000
-        Height = 30
+        Left = 1050
+        Height = 34
         Top = 7
         Width = 36
         Flat = True
         Caption = '🔔'
-        Font.Size = 10
+        Font.Size = 11
         ParentFont = False
       end
     end
+
+    { Content ScrollBox }
     object scrContent: TScrollBox
       Left = 0
-      Height = 706
-      Top = 44
-      Width = 1060
+      Height = 732
+      Top = 48
+      Width = 1100
       Align = alClient
       BorderStyle = bsNone
       Color = 15921906
       ParentColor = False
       TabOrder = 0
+
+      { === Stats Row === }
       object pnlStats: TPanel
         Left = 0
         Height = 100
         Top = 0
-        Width = 1060
+        Width = 1100
         Align = alTop
         BevelOuter = bvNone
         Color = 15921906
         ParentColor = False
+
         object pnlStat1: TPanel
           Left = 16
           Height = 80
           Top = 10
-          Width = 240
+          Width = 254
           BevelOuter = bvNone
           Color = clWhite
           ParentColor = False
           TabOrder = 0
           object shpStat1: TShape
-            Left = 16
+            Left = 18
             Height = 44
             Top = 18
             Width = 44
@@ -355,7 +426,7 @@ object frmMain: TfrmMain
             Shape = stRoundRect
           end
           object lblStat1Icon: TLabel
-            Left = 26
+            Left = 28
             Height = 22
             Top = 28
             Width = 24
@@ -364,21 +435,21 @@ object frmMain: TfrmMain
             ParentFont = False
           end
           object lblStat1Value: TLabel
-            Left = 72
-            Height = 26
+            Left = 76
+            Height = 28
             Top = 16
             Width = 40
             Caption = '80'
             Font.Color = 2434341
-            Font.Height = -22
+            Font.Height = -24
             Font.Name = 'Microsoft YaHei'
             Font.Style = [fsBold]
             ParentFont = False
           end
           object lblStat1Label: TLabel
-            Left = 72
+            Left = 76
             Height = 14
-            Top = 46
+            Top = 48
             Width = 100
             Caption = '本月费用笔数'
             Font.Color = 6052956
@@ -387,17 +458,18 @@ object frmMain: TfrmMain
             ParentFont = False
           end
         end
+
         object pnlStat2: TPanel
-          Left = 268
+          Left = 282
           Height = 80
           Top = 10
-          Width = 240
+          Width = 254
           BevelOuter = bvNone
           Color = clWhite
           ParentColor = False
           TabOrder = 1
           object shpStat2: TShape
-            Left = 16
+            Left = 18
             Height = 44
             Top = 18
             Width = 44
@@ -406,7 +478,7 @@ object frmMain: TfrmMain
             Shape = stRoundRect
           end
           object lblStat2Icon: TLabel
-            Left = 26
+            Left = 28
             Height = 22
             Top = 28
             Width = 24
@@ -415,21 +487,21 @@ object frmMain: TfrmMain
             ParentFont = False
           end
           object lblStat2Value: TLabel
-            Left = 72
-            Height = 26
+            Left = 76
+            Height = 28
             Top = 16
             Width = 100
             Caption = '¥128,450'
             Font.Color = 2434341
-            Font.Height = -22
+            Font.Height = -24
             Font.Name = 'Microsoft YaHei'
             Font.Style = [fsBold]
             ParentFont = False
           end
           object lblStat2Label: TLabel
-            Left = 72
+            Left = 76
             Height = 14
-            Top = 46
+            Top = 48
             Width = 80
             Caption = '本月报销合计'
             Font.Color = 6052956
@@ -438,17 +510,18 @@ object frmMain: TfrmMain
             ParentFont = False
           end
         end
+
         object pnlStat3: TPanel
-          Left = 520
+          Left = 548
           Height = 80
           Top = 10
-          Width = 240
+          Width = 254
           BevelOuter = bvNone
           Color = clWhite
           ParentColor = False
           TabOrder = 2
           object shpStat3: TShape
-            Left = 16
+            Left = 18
             Height = 44
             Top = 18
             Width = 44
@@ -457,7 +530,7 @@ object frmMain: TfrmMain
             Shape = stRoundRect
           end
           object lblStat3Icon: TLabel
-            Left = 26
+            Left = 28
             Height = 22
             Top = 28
             Width = 24
@@ -466,21 +539,21 @@ object frmMain: TfrmMain
             ParentFont = False
           end
           object lblStat3Value: TLabel
-            Left = 72
-            Height = 26
+            Left = 76
+            Height = 28
             Top = 16
             Width = 40
             Caption = '23'
             Font.Color = 2434341
-            Font.Height = -22
+            Font.Height = -24
             Font.Name = 'Microsoft YaHei'
             Font.Style = [fsBold]
             ParentFont = False
           end
           object lblStat3Label: TLabel
-            Left = 72
+            Left = 76
             Height = 14
-            Top = 46
+            Top = 48
             Width = 80
             Caption = '待审批笔数'
             Font.Color = 6052956
@@ -489,17 +562,18 @@ object frmMain: TfrmMain
             ParentFont = False
           end
         end
+
         object pnlStat4: TPanel
-          Left = 772
+          Left = 814
           Height = 80
           Top = 10
-          Width = 240
+          Width = 254
           BevelOuter = bvNone
           Color = clWhite
           ParentColor = False
           TabOrder = 3
           object shpStat4: TShape
-            Left = 16
+            Left = 18
             Height = 44
             Top = 18
             Width = 44
@@ -508,7 +582,7 @@ object frmMain: TfrmMain
             Shape = stRoundRect
           end
           object lblStat4Icon: TLabel
-            Left = 26
+            Left = 28
             Height = 22
             Top = 28
             Width = 24
@@ -517,21 +591,21 @@ object frmMain: TfrmMain
             ParentFont = False
           end
           object lblStat4Value: TLabel
-            Left = 72
-            Height = 26
+            Left = 76
+            Height = 28
             Top = 16
             Width = 100
             Caption = '¥45,200'
             Font.Color = 2434341
-            Font.Height = -22
+            Font.Height = -24
             Font.Name = 'Microsoft YaHei'
             Font.Style = [fsBold]
             ParentFont = False
           end
           object lblStat4Label: TLabel
-            Left = 72
+            Left = 76
             Height = 14
-            Top = 46
+            Top = 48
             Width = 100
             Caption = '预付/代付余额'
             Font.Color = 6052956
@@ -541,39 +615,45 @@ object frmMain: TfrmMain
           end
         end
       end
+
+      { === Filter Card (Collapsible) === }
       object pnlFilterCard: TPanel
         Left = 0
-        Height = 140
+        Height = 148
         Top = 110
-        Width = 1060
+        Width = 1100
         Align = alTop
         BevelOuter = bvNone
         Color = 15921906
         ParentColor = False
         TabOrder = 1
+
         object pnlFilterInner: TPanel
           Left = 16
-          Height = 130
+          Height = 138
           Top = 0
-          Width = 1028
+          Width = 1068
           BevelOuter = bvNone
           Color = clWhite
           ParentColor = False
           TabOrder = 0
+
+          { Filter Header - clickable to toggle }
           object pnlFilterHeader: TPanel
             Left = 0
-            Height = 36
+            Height = 40
             Top = 0
-            Width = 1028
+            Width = 1068
             Align = alTop
             BevelOuter = bvNone
             Color = clWhite
             ParentColor = False
-            TabOrder = 0
+            Cursor = crHandPoint
+            OnClick = lblFilterToggleClick
             object lblFilterTitle: TLabel
-              Left = 16
+              Left = 20
               Height = 20
-              Top = 8
+              Top = 10
               Width = 100
               Caption = '🔍  筛选条件'
               Font.Color = 2434341
@@ -583,31 +663,33 @@ object frmMain: TfrmMain
               ParentFont = False
             end
             object lblFilterToggle: TLabel
-              Left = 1000
+              Left = 1036
               Height = 20
-              Top = 8
+              Top = 10
               Width = 16
               Alignment = taRightJustify
               Caption = '▼'
               Font.Color = 10066329
-              Font.Height = -11
+              Font.Height = -12
               Font.Name = 'Microsoft YaHei'
               ParentFont = False
               OnClick = lblFilterToggleClick
             end
           end
+
+          { Filter Body - grid of controls }
           object pnlFilterBody: TPanel
             Left = 0
-            Height = 90
-            Top = 36
-            Width = 1028
+            Height = 94
+            Top = 40
+            Width = 1068
             Align = alClient
             BevelOuter = bvNone
             Color = clWhite
             ParentColor = False
             TabOrder = 1
             object lblCompany: TLabel
-              Left = 16
+              Left = 20
               Height = 14
               Top = 6
               Width = 28
@@ -619,19 +701,19 @@ object frmMain: TfrmMain
               ParentFont = False
             end
             object cmbCompany: TComboBox
-              Left = 16
-              Height = 24
+              Left = 20
+              Height = 26
               Top = 22
-              Width = 130
+              Width = 140
               Font.Name = 'Microsoft YaHei'
-              Font.Size = 8
-              ItemHeight = 16
+              Font.Size = 9
+              ItemHeight = 18
               ParentFont = False
               Style = csDropDownList
               TabOrder = 0
             end
             object lblDept: TLabel
-              Left = 158
+              Left = 174
               Height = 14
               Top = 6
               Width = 28
@@ -643,19 +725,19 @@ object frmMain: TfrmMain
               ParentFont = False
             end
             object cmbDept: TComboBox
-              Left = 158
-              Height = 24
+              Left = 174
+              Height = 26
               Top = 22
-              Width = 110
+              Width = 120
               Font.Name = 'Microsoft YaHei'
-              Font.Size = 8
-              ItemHeight = 16
+              Font.Size = 9
+              ItemHeight = 18
               ParentFont = False
               Style = csDropDownList
               TabOrder = 1
             end
             object lblCat1: TLabel
-              Left = 280
+              Left = 308
               Height = 14
               Top = 6
               Width = 50
@@ -667,20 +749,20 @@ object frmMain: TfrmMain
               ParentFont = False
             end
             object cmbCat1: TComboBox
-              Left = 280
-              Height = 24
+              Left = 308
+              Height = 26
               Top = 22
-              Width = 120
+              Width = 130
               Font.Name = 'Microsoft YaHei'
-              Font.Size = 8
-              ItemHeight = 16
+              Font.Size = 9
+              ItemHeight = 18
               ParentFont = False
               Style = csDropDownList
               TabOrder = 2
               OnChange = cmbCat1Change
             end
             object lblCat2: TLabel
-              Left = 412
+              Left = 452
               Height = 14
               Top = 6
               Width = 50
@@ -692,19 +774,19 @@ object frmMain: TfrmMain
               ParentFont = False
             end
             object cmbCat2: TComboBox
-              Left = 412
-              Height = 24
+              Left = 452
+              Height = 26
               Top = 22
-              Width = 120
+              Width = 130
               Font.Name = 'Microsoft YaHei'
-              Font.Size = 8
-              ItemHeight = 16
+              Font.Size = 9
+              ItemHeight = 18
               ParentFont = False
               Style = csDropDownList
               TabOrder = 3
             end
             object lblStatus: TLabel
-              Left = 544
+              Left = 596
               Height = 14
               Top = 6
               Width = 50
@@ -716,19 +798,19 @@ object frmMain: TfrmMain
               ParentFont = False
             end
             object cmbStatus: TComboBox
-              Left = 544
-              Height = 24
+              Left = 596
+              Height = 26
               Top = 22
-              Width = 90
+              Width = 100
               Font.Name = 'Microsoft YaHei'
-              Font.Size = 8
-              ItemHeight = 16
+              Font.Size = 9
+              ItemHeight = 18
               ParentFont = False
               Style = csDropDownList
               TabOrder = 4
             end
             object lblMethod: TLabel
-              Left = 646
+              Left = 710
               Height = 14
               Top = 6
               Width = 28
@@ -740,19 +822,19 @@ object frmMain: TfrmMain
               ParentFont = False
             end
             object cmbMethod: TComboBox
-              Left = 646
-              Height = 24
+              Left = 710
+              Height = 26
               Top = 22
-              Width = 80
+              Width = 90
               Font.Name = 'Microsoft YaHei'
-              Font.Size = 8
-              ItemHeight = 16
+              Font.Size = 9
+              ItemHeight = 18
               ParentFont = False
               Style = csDropDownList
               TabOrder = 5
             end
             object lblDateFrom: TLabel
-              Left = 738
+              Left = 814
               Height = 14
               Top = 6
               Width = 50
@@ -763,26 +845,19 @@ object frmMain: TfrmMain
               Font.Style = [fsBold]
               ParentFont = False
             end
-            object chkDateFilter: TCheckBox
-              Left = 722
-              Height = 20
-              Top = 24
-              Width = 14
-              TabOrder = 6
-            end
             object edtDateFrom: TEdit
-              Left = 738
-              Height = 24
+              Left = 814
+              Height = 26
               Top = 22
-              Width = 100
+              Width = 108
               Font.Name = 'Microsoft YaHei'
-              Font.Size = 8
+              Font.Size = 9
               ParentFont = False
-              TabOrder = 7
+              TabOrder = 6
               TextHint = 'yyyy-mm-dd'
             end
             object lblDateTo: TLabel
-              Left = 850
+              Left = 936
               Height = 14
               Top = 6
               Width = 50
@@ -794,148 +869,175 @@ object frmMain: TfrmMain
               ParentFont = False
             end
             object edtDateTo: TEdit
-              Left = 850
-              Height = 24
+              Left = 936
+              Height = 26
               Top = 22
-              Width = 100
+              Width = 108
               Font.Name = 'Microsoft YaHei'
-              Font.Size = 8
+              Font.Size = 9
               ParentFont = False
-              TabOrder = 8
+              TabOrder = 7
               TextHint = 'yyyy-mm-dd'
             end
-            object edtSearch: TEdit
-              Left = 16
-              Height = 24
-              Top = 56
-              Width = 250
+
+            { Row 2: Search + buttons }
+            object lblSearch: TLabel
+              Left = 20
+              Height = 14
+              Top = 54
+              Width = 28
+              Caption = '搜索'
+              Font.Color = 6052956
+              Font.Height = -11
               Font.Name = 'Microsoft YaHei'
-              Font.Size = 8
+              Font.Style = [fsBold]
               ParentFont = False
-              TabOrder = 9
+            end
+            object edtSearch: TEdit
+              Left = 20
+              Height = 26
+              Top = 70
+              Width = 280
+              Font.Name = 'Microsoft YaHei'
+              Font.Size = 9
+              ParentFont = False
+              TabOrder = 8
               TextHint = '搜索明细 / 发票内容 / 备注...'
             end
+            object chkDateFilter: TCheckBox
+              Left = 796
+              Height = 22
+              Top = 24
+              Width = 16
+              TabOrder = 9
+            end
             object btnSearch: TSpeedButton
-              Left = 276
-              Height = 24
-              Top = 56
-              Width = 60
+              Left = 310
+              Height = 26
+              Top = 70
+              Width = 70
               Caption = '🔍 查询'
               Font.Name = 'Microsoft YaHei'
-              Font.Size = 8
+              Font.Size = 9
               ParentFont = False
               OnClick = btnSearchClick
             end
             object btnReset: TSpeedButton
-              Left = 342
-              Height = 24
-              Top = 56
-              Width = 60
+              Left = 386
+              Height = 26
+              Top = 70
+              Width = 70
               Caption = '🔄 重置'
               Font.Name = 'Microsoft YaHei'
-              Font.Size = 8
+              Font.Size = 9
               ParentFont = False
               OnClick = btnResetClick
             end
           end
         end
       end
+
+      { === Table Card === }
       object pnlTableCard: TPanel
         Left = 0
-        Height = 440
-        Top = 250
-        Width = 1060
+        Height = 460
+        Top = 268
+        Width = 1100
         Align = alTop
         BevelOuter = bvNone
         Color = 15921906
         ParentColor = False
         TabOrder = 2
+
         object pnlTableInner: TPanel
           Left = 16
-          Height = 430
+          Height = 450
           Top = 0
-          Width = 1028
+          Width = 1068
           BevelOuter = bvNone
           Color = clWhite
           ParentColor = False
           TabOrder = 0
+
+          { Toolbar }
           object pnlToolbar: TPanel
             Left = 0
-            Height = 40
+            Height = 44
             Top = 0
-            Width = 1028
+            Width = 1068
             Align = alTop
             BevelOuter = bvNone
             Color = clWhite
             ParentColor = False
             TabOrder = 0
             object btnAdd: TSpeedButton
-              Left = 12
-              Height = 28
-              Top = 6
-              Width = 80
+              Left = 16
+              Height = 30
+              Top = 7
+              Width = 86
               Caption = '➕ 新增'
               Font.Name = 'Microsoft YaHei'
-              Font.Size = 8
+              Font.Size = 9
               ParentFont = False
               OnClick = btnAddClick
             end
             object btnEdit: TSpeedButton
-              Left = 100
-              Height = 28
-              Top = 6
-              Width = 80
+              Left = 110
+              Height = 30
+              Top = 7
+              Width = 86
               Caption = '✏️ 编辑'
               Font.Name = 'Microsoft YaHei'
-              Font.Size = 8
+              Font.Size = 9
               ParentFont = False
               OnClick = btnEditClick
             end
             object btnDelete: TSpeedButton
-              Left = 188
-              Height = 28
-              Top = 6
-              Width = 80
+              Left = 204
+              Height = 30
+              Top = 7
+              Width = 86
               Caption = '🗑️ 删除'
               Font.Name = 'Microsoft YaHei'
-              Font.Size = 8
+              Font.Size = 9
               Font.Color = 12868084
               ParentFont = False
               OnClick = btnDeleteClick
             end
             object sep1: TShape
-              Left = 280
+              Left = 302
               Height = 20
-              Top = 10
+              Top = 12
               Width = 1
               Brush.Color = 15066597
               Pen.Color = 15066597
             end
             object btnImport: TSpeedButton
-              Left = 292
-              Height = 28
-              Top = 6
-              Width = 70
+              Left = 314
+              Height = 30
+              Top = 7
+              Width = 76
               Caption = '📥 导入'
               Font.Name = 'Microsoft YaHei'
-              Font.Size = 8
+              Font.Size = 9
               ParentFont = False
+              OnClick = lblNavImportClick
             end
             object btnExport: TSpeedButton
-              Left = 368
-              Height = 28
-              Top = 6
-              Width = 70
+              Left = 396
+              Height = 30
+              Top = 7
+              Width = 76
               Caption = '📤 导出'
               Font.Name = 'Microsoft YaHei'
-              Font.Size = 8
+              Font.Size = 9
               ParentFont = False
               OnClick = btnExportClick
             end
             object lblRecordHint: TLabel
-              Left = 940
+              Left = 970
               Height = 14
-              Top = 14
+              Top = 16
               Width = 70
               Alignment = taRightJustify
               Caption = '共 80 条'
@@ -945,11 +1047,13 @@ object frmMain: TfrmMain
               ParentFont = False
             end
           end
+
+          { Data Grid }
           object dbgExpenses: TDBGrid
             Left = 0
-            Height = 340
-            Top = 40
-            Width = 1028
+            Height = 358
+            Top = 44
+            Width = 1068
             Align = alClient
             DataSource = dtsExpense
             Font.Name = 'Microsoft YaHei'
@@ -964,43 +1068,45 @@ object frmMain: TfrmMain
             OnPrepareCanvas = dbgExpensesPrepareCanvas
             AlternateColor = 16119285
           end
+
+          { Status Bar }
           object pnlStatusBar: TPanel
             Left = 0
-            Height = 32
-            Top = 380
-            Width = 1028
+            Height = 36
+            Top = 402
+            Width = 1068
             Align = alBottom
             BevelOuter = bvNone
             Color = 16119285
             ParentColor = False
             TabOrder = 2
             object lblRecordCount: TLabel
-              Left = 16
+              Left = 20
               Height = 16
-              Top = 8
+              Top = 10
               Width = 120
               Caption = '记录数: 0'
               Font.Color = 6052956
-              Font.Height = -11
+              Font.Height = -12
               Font.Name = 'Microsoft YaHei'
               ParentFont = False
             end
             object lblTotalAmount: TLabel
               Left = 180
               Height = 16
-              Top = 8
-              Width = 140
+              Top = 10
+              Width = 160
               Caption = '合计金额: ¥0.00'
               Font.Color = 12868084
-              Font.Height = -11
+              Font.Height = -12
               Font.Name = 'Microsoft YaHei'
               Font.Style = [fsBold]
               ParentFont = False
             end
             object navExpense: TDBNavigator
-              Left = 880
-              Height = 26
-              Top = 3
+              Left = 920
+              Height = 28
+              Top = 4
               Width = 136
               Align = alCustom
               Anchors = [akTop, akRight]
@@ -1014,6 +1120,8 @@ object frmMain: TfrmMain
       end
     end
   end
+
+  { ===== Timers & DataSources ===== }
   object tmrToast: TTimer
     Enabled = False
     Interval = 2500
