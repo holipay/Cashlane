@@ -149,8 +149,8 @@ type
     procedure btnExportClick(Sender: TObject);
     procedure btnRefreshClick(Sender: TObject);
     procedure dbgExpensesDblClick(Sender: TObject);
-    procedure dbgExpensesPrepareCanvas(sender: TObject; DataCol: Integer;
-      Column: TColumn; AState: TGridDrawState);
+    procedure dbgExpensesDrawColumnCell(Sender: TObject; const Rect: TRect;
+      DataCol: Integer; Column: TColumn; State: TGridDrawState);
 
     { Toast }
     procedure tmrToastTimer(Sender: TObject);
@@ -738,54 +738,66 @@ begin
   btnEditClick(nil);
 end;
 
-procedure TfrmMain.dbgExpensesPrepareCanvas(sender: TObject; DataCol: Integer;
-  Column: TColumn; AState: TGridDrawState);
+procedure TfrmMain.dbgExpensesDrawColumnCell(Sender: TObject;
+  const Rect: TRect; DataCol: Integer; Column: TColumn; State: TGridDrawState);
 var
-  fn: string;
+  grid: TDBGrid;
 begin
-  fn := Column.FieldName;
+  grid := TDBGrid(Sender);
+
+  { Alternate row colors }
+  if Odd(grid.DataSource.DataSet.RecNo) then
+    grid.Canvas.Brush.Color := $00FAFAFA
+  else
+    grid.Canvas.Brush.Color := clWhite;
+
+  { Selected row highlight }
+  if gdSelected in State then
+    grid.Canvas.Brush.Color := $00F7E4CC;
 
   { Amount columns: bold + red }
-  if (fn = 'prepaid') or (fn = 'reimburse_amount') then
+  if (Column.FieldName = 'prepaid') or (Column.FieldName = 'reimburse_amount') then
   begin
-    dbgExpenses.Canvas.Font.Style := [fsBold];
-    dbgExpenses.Canvas.Font.Color := $001C1CC4;
+    grid.Canvas.Font.Style := [fsBold];
+    grid.Canvas.Font.Color := $001C1CC4;
   end;
 
-  { Status column: colored badge backgrounds }
-  if fn = 'reimburse_status' then
+  { Status column: colored badges }
+  if Column.FieldName = 'reimburse_status' then
   begin
+    grid.Canvas.Font.Style := [fsBold];
     case Column.Field.AsString of
       '完成': begin
-        dbgExpenses.Canvas.Font.Color := $000F7B0F;
-        dbgExpenses.Canvas.Brush.Color := $00DDF6DD;
+        grid.Canvas.Font.Color := $000F7B0F;
+        grid.Canvas.Brush.Color := $00DDF6DD;
       end;
       '取消': begin
-        dbgExpenses.Canvas.Font.Color := clGray;
-        dbgExpenses.Canvas.Brush.Color := $00F0F0F0;
+        grid.Canvas.Font.Color := clGray;
+        grid.Canvas.Brush.Color := $00F0F0F0;
       end;
       '填单': begin
-        dbgExpenses.Canvas.Font.Color := $00005D9D;
-        dbgExpenses.Canvas.Brush.Color := $00CEFFF4;
+        grid.Canvas.Font.Color := $00005D9D;
+        grid.Canvas.Brush.Color := $00CEFFF4;
       end;
       '签录', '发票': begin
-        dbgExpenses.Canvas.Font.Color := $00D47800;
-        dbgExpenses.Canvas.Brush.Color := $00FDF4E8;
+        grid.Canvas.Font.Color := $00D47800;
+        grid.Canvas.Brush.Color := $00FDF4E8;
       end;
       '付款': begin
-        dbgExpenses.Canvas.Font.Color := $000F7B0F;
-        dbgExpenses.Canvas.Brush.Color := $00DDF6DD;
+        grid.Canvas.Font.Color := $000F7B0F;
+        grid.Canvas.Brush.Color := $00DDF6DD;
       end;
     else
-      dbgExpenses.Canvas.Font.Color := $00D47800;
-      dbgExpenses.Canvas.Brush.Color := $00FDF4E8;
+      grid.Canvas.Font.Color := $00D47800;
+      grid.Canvas.Brush.Color := $00FDF4E8;
     end;
-    dbgExpenses.Canvas.Font.Style := [fsBold];
   end;
 
   { ID column accent color }
-  if fn = 'doc_id' then
-    dbgExpenses.Canvas.Font.Color := $00D47800;
+  if Column.FieldName = 'doc_id' then
+    grid.Canvas.Font.Color := $00D47800;
+
+  grid.DefaultDrawColumnCell(Rect, DataCol, Column, State);
 end;
 
 { ===== Toast ===== }

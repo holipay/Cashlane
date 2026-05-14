@@ -1065,7 +1065,7 @@ object frmMain: TfrmMain
             TitleFont.Size = 8
             TitleFont.Style = [fsBold]
             OnDblClick = dbgExpensesDblClick
-            OnPrepareCanvas = dbgExpensesPrepareCanvas
+            OnDrawColumnCell = dbgExpensesDrawColumnCell
             AlternateColor = 16119285
           end
 
