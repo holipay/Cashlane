@@ -13,7 +13,10 @@ type
   { TfrmReport }
 
   TfrmReport = class(TForm)
-    pnlTop: TPanel;
+    pnlHeader: TPanel;
+    lblHeaderTitle: TLabel;
+    pnlFilter: TPanel;
+    pnlSummary: TPanel;
     pnlLeft: TPanel;
     pnlRight: TPanel;
     lblYear: TLabel;
@@ -54,9 +57,10 @@ procedure TfrmReport.FormCreate(Sender: TObject);
 begin
   Position := poMainFormCenter;
   BorderStyle := bsDialog;
-  Caption := '📊 费用统计报表';
-  Width := 900;
-  Height := 600;
+  Caption := '费用统计报表';
+  Width := 960;
+  Height := 640;
+  Color := $00F3F3F3;
 end;
 
 procedure TfrmReport.FormShow(Sender: TObject);

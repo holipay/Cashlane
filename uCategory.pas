@@ -13,7 +13,10 @@ type
   { TfrmCategory }
 
   TfrmCategory = class(TForm)
-    pnlTop: TPanel;
+    pnlHeader: TPanel;
+    lblHeaderTitle: TLabel;
+    pnlToolbar: TPanel;
+    pnlBody: TPanel;
     pnlBottom: TPanel;
     tvCategory: TTreeView;
     pnlRight: TPanel;
@@ -51,9 +54,10 @@ procedure TfrmCategory.FormCreate(Sender: TObject);
 begin
   Position := poMainFormCenter;
   BorderStyle := bsDialog;
-  Caption := '🏷️ 科目分类管理';
-  Width := 700;
-  Height := 500;
+  Caption := '科目分类管理';
+  Width := 740;
+  Height := 540;
+  Color := $00F3F3F3;
 end;
 
 procedure TfrmCategory.FormShow(Sender: TObject);

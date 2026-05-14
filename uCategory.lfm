@@ -1,26 +1,49 @@
 object frmCategory: TfrmCategory
   Left = 300
-  Height = 500
+  Height = 540
   Top = 150
-  Width = 700
+  Width = 740
   BorderStyle = bsDialog
-  Caption = '🏷️ 科目分类管理'
+  Caption = '科目分类管理'
+  Color = 15921906
   Position = poMainFormCenter
   OnCreate = FormCreate
   OnShow = FormShow
-  object pnlTop: TPanel
+  object pnlHeader: TPanel
     Left = 0
-    Height = 50
+    Height = 48
     Top = 0
-    Width = 700
+    Width = 740
     Align = alTop
     BevelOuter = bvNone
-    Color = 15790320
+    Color = 42640
+    ParentColor = False
+    object lblHeaderTitle: TLabel
+      Left = 20
+      Height = 20
+      Top = 14
+      Width = 140
+      Caption = '🏷️ 科目分类管理'
+      Font.Color = clWhite
+      Font.Height = -15
+      Font.Name = 'Microsoft YaHei'
+      Font.Style = [fsBold]
+      ParentFont = False
+    end
+  end
+  object pnlToolbar: TPanel
+    Left = 0
+    Height = 48
+    Top = 48
+    Width = 740
+    Align = alTop
+    BevelOuter = bvNone
+    Color = clWhite
     ParentColor = False
     object btnAddMain: TSpeedButton
-      Left = 8
-      Height = 32
-      Top = 10
+      Left = 12
+      Height = 30
+      Top = 9
       Width = 100
       Caption = '➕ 新增一级'
       Font.Name = 'Microsoft YaHei'
@@ -29,9 +52,9 @@ object frmCategory: TfrmCategory
       OnClick = btnAddMainClick
     end
     object btnAddSub: TSpeedButton
-      Left = 116
-      Height = 32
-      Top = 10
+      Left = 120
+      Height = 30
+      Top = 9
       Width = 100
       Caption = '➕ 新增二级'
       Font.Name = 'Microsoft YaHei'
@@ -40,9 +63,9 @@ object frmCategory: TfrmCategory
       OnClick = btnAddSubClick
     end
     object btnEdit: TSpeedButton
-      Left = 224
-      Height = 32
-      Top = 10
+      Left = 228
+      Height = 30
+      Top = 9
       Width = 80
       Caption = '✏️ 编辑'
       Font.Name = 'Microsoft YaHei'
@@ -51,73 +74,92 @@ object frmCategory: TfrmCategory
       OnClick = btnEditClick
     end
     object btnDelete: TSpeedButton
-      Left = 312
-      Height = 32
-      Top = 10
+      Left = 316
+      Height = 30
+      Top = 9
       Width = 80
       Caption = '🗑️ 删除'
+      Font.Color = 12868084
       Font.Name = 'Microsoft YaHei'
       Font.Size = 9
       ParentFont = False
       OnClick = btnDeleteClick
     end
   end
-  object tvCategory: TTreeView
-    Left = 0
-    Height = 400
-    Top = 50
-    Width = 200
-    Align = alLeft
-    Font.Name = 'Microsoft YaHei'
-    Font.Size = 10
-    ParentFont = False
-    ReadOnly = True
-    TabOrder = 0
-    OnSelectionChanged = tvCategorySelectionChanged
-  end
-  object pnlRight: TPanel
-    Left = 200
-    Height = 400
-    Top = 50
-    Width = 500
-    Align = alClient
+  object pnlBody: TPanel
+    Left = 12
+    Height = 380
+    Top = 104
+    Width = 716
     BevelOuter = bvNone
-    object dbgSub: TDBGrid
+    Color = clWhite
+    ParentColor = False
+    TabOrder = 0
+    object tvCategory: TTreeView
       Left = 0
-      Height = 400
+      Height = 380
       Top = 0
-      Width = 500
-      Align = alClient
-      DataSource = dtsCategory
+      Width = 220
+      Align = alLeft
+      BorderStyle = bsNone
       Font.Name = 'Microsoft YaHei'
-      Font.Size = 9
+      Font.Size = 10
       ParentFont = False
       ReadOnly = True
       TabOrder = 0
-      TitleFont.Name = 'Microsoft YaHei'
-      TitleFont.Size = 8
-      TitleFont.Style = [fsBold]
+      OnSelectionChanged = tvCategorySelectionChanged
+    end
+    object pnlRight: TPanel
+      Left = 220
+      Height = 380
+      Top = 0
+      Width = 496
+      Align = alClient
+      BevelOuter = bvNone
+      object dbgSub: TDBGrid
+        Left = 0
+        Height = 380
+        Top = 0
+        Width = 496
+        Align = alClient
+        BorderStyle = bsNone
+        DataSource = dtsCategory
+        Font.Name = 'Microsoft YaHei'
+        Font.Size = 9
+        ParentFont = False
+        ReadOnly = True
+        TabOrder = 0
+        TitleFont.Name = 'Microsoft YaHei'
+        TitleFont.Size = 8
+        TitleFont.Style = [fsBold]
+        AlternateColor = 16119285
+      end
     end
   end
   object pnlBottom: TPanel
     Left = 0
-    Height = 40
-    Top = 450
-    Width = 700
+    Height = 44
+    Top = 496
+    Width = 740
     Align = alBottom
     BevelOuter = bvNone
+    Color = 15921906
+    ParentColor = False
     object btnClose: TBitBtn
-      Left = 300
+      Left = 640
       Height = 28
-      Top = 6
-      Width = 100
+      Top = 8
+      Width = 80
       Caption = '关闭'
+      Font.Name = 'Microsoft YaHei'
+      Font.Size = 9
       Kind = bkClose
+      ParentFont = False
       TabOrder = 0
     end
   end
   object dtsCategory: TDataSource
-    Left = 620
+    Left = 640
     Top = 8
   end
 end

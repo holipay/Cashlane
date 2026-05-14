@@ -13,7 +13,10 @@ type
   { TfrmImport }
 
   TfrmImport = class(TForm)
-    pnlTop: TPanel;
+    pnlHeader: TPanel;
+    lblHeaderTitle: TLabel;
+    pnlFileSelect: TPanel;
+    pnlLog: TPanel;
     pnlBottom: TPanel;
     lblFile: TLabel;
     edtFile: TEdit;
@@ -47,9 +50,10 @@ procedure TfrmImport.FormCreate(Sender: TObject);
 begin
   Position := poMainFormCenter;
   BorderStyle := bsDialog;
-  Caption := '📥 从 CSV 导入费用数据';
-  Width := 600;
-  Height := 450;
+  Caption := '导入费用数据';
+  Width := 640;
+  Height := 480;
+  Color := $00F3F3F3;
   memLog.Lines.Clear;
   pbProgress.Visible := False;
 end;

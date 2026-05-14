@@ -13,7 +13,10 @@ type
   { TfrmContacts }
 
   TfrmContacts = class(TForm)
-    pnlTop: TPanel;
+    pnlHeader: TPanel;
+    lblHeaderTitle: TLabel;
+    pnlToolbar: TPanel;
+    pnlTable: TPanel;
     pnlBottom: TPanel;
     dbgContacts: TDBGrid;
     btnAdd: TSpeedButton;
@@ -49,9 +52,10 @@ procedure TfrmContacts.FormCreate(Sender: TObject);
 begin
   Position := poMainFormCenter;
   BorderStyle := bsDialog;
-  Caption := '👤 联系人/供应商管理';
-  Width := 800;
-  Height := 500;
+  Caption := '联系人/供应商管理';
+  Width := 860;
+  Height := 540;
+  Color := $00F3F3F3;
 end;
 
 procedure TfrmContacts.FormShow(Sender: TObject);

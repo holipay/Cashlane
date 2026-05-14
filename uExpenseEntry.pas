@@ -13,6 +13,8 @@ type
   { TfrmExpenseEntry }
 
   TfrmExpenseEntry = class(TForm)
+    pnlHeader: TPanel;
+    lblHeaderTitle: TLabel;
     pnlButtons: TPanel;
     btnSave: TBitBtn;
     btnCancel: TBitBtn;
@@ -104,9 +106,10 @@ procedure TfrmExpenseEntry.FormCreate(Sender: TObject);
 begin
   Position := poMainFormCenter;
   BorderStyle := bsDialog;
-  Width := 680;
-  Height := 580;
+  Width := 700;
+  Height := 620;
   Caption := '费用录入';
+  Color := $00F3F3F3;
 end;
 
 procedure TfrmExpenseEntry.LoadLookups;
@@ -330,7 +333,8 @@ function TfrmExpenseEntry.ShowAdd: Boolean;
 begin
   FIsAdd := True;
   FExpenseId := -1;
-  Caption := '➕ 新增费用';
+  Caption := '新增费用';
+  lblHeaderTitle.Caption := '➕ 新增费用记录';
   LoadLookups;
   edtSID.Text := '';
   edtDocId.Text := '';
@@ -355,7 +359,8 @@ function TfrmExpenseEntry.ShowEdit(AId: Integer): Boolean;
 begin
   FIsAdd := False;
   FExpenseId := AId;
-  Caption := '✏️ 编辑费用';
+  Caption := '编辑费用';
+  lblHeaderTitle.Caption := '✏️ 编辑费用记录';
   LoadLookups;
   LoadExpense(AId);
   pcEntry.ActivePage := tsBasic;
